@@ -1,17 +1,23 @@
-<%@page import="site0616.medel.domain.Board"%>
-<%@page import="site0616.board.medel.dao.BoardDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
 <%@ page  contentType="text/html; charset=UTF-8"%>
-<%!
-	BoardDAO boardDAO = new BoardDAO();
-
-%>
 <%
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	Connection con=null;
+	PreparedStatement pstmt=null;
+	ResultSet rs=null;
+	con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "webmaster", "1234");
+	
+	//list.jsp의 링크를 통해 전송되어온 파라미터값 받기
 	String board_id = request.getParameter("board_id");
-	Board board = boardDAO.select(Integer.parseInt(board_id));
+	
+	String sql="select * from board where board_id="+board_id;
+	pstmt=con.prepareStatement(sql);
+	rs=pstmt.executeQuery();
+	rs.next();//커서 한칸 내려야지 내용이 지정됨
+
 %>
 <!DOCTYPE html>
 <html>
@@ -98,10 +104,10 @@ function del(){
 <div class="container">
   <form>
   	
-    <input type="hidden" name="board_id" value="<%=board.getBoard_id()%>">
-    <input type="text" name="title" 		value="<%=board.getTitle()%>">
-    <input type="text" name="writer" 		value="<%=board.getWriter()%>">
-    <textarea 			   name="content" 	style="height:200px"><%=board.getContent()%></textarea>
+    <input type="hidden" name="board_id" value="<%=rs.getString("board_id")%>">
+    <input type="text" name="title" 		value="<%=rs.getString("title")%>">
+    <input type="text" name="writer" 		value="<%=rs.getString("writer")%>">
+    <textarea 			   name="content" 	style="height:200px"><%=rs.getString("content")%></textarea>
     <input type="button" value="수정" id="bt_edit">
     <input type="button" value="삭제" id="bt_del">
     <input type="button" value="목록" id="bt_list">
@@ -110,4 +116,8 @@ function del(){
 
 </body>
 </html>
-
+<%
+	if(con!=null)con.close();
+	if(pstmt!=null)pstmt.close();
+	if(rs!=null)rs.close();
+%>
