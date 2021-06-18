@@ -1,5 +1,12 @@
+<%@page import="site0617.model.domain.Gallery"%>
+<%@page import="site0617.model.gallery.dao.GalleryDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%! GalleryDAO galleryDAO = new GalleryDAO(); %>
+    <%  
+    	String gallery_id = request.getParameter("gallery_id");
+    	Gallery gallery=galleryDAO.select(Integer.parseInt(gallery_id));
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +68,11 @@ $(function(){
 
 function del(){
 	if(confirm("삭제 하시겠어요?")){
-		
+		$("form").attr({
+			"action":"/delete",
+			"method":"post"
+		});
+		$("form").submit();
 	}
 }
 
@@ -73,9 +84,11 @@ function del(){
 
 <div class="container">
   <form>
-    <input type="text" name="title" 		placeholder="제목..">
-    <input type="text" name="writer" 		placeholder="작성자..">
-    <textarea 			   name="content" 	placeholder="내용.." style="height:200px"></textarea>
+  	<input type="hidden" name="gallery_id" value="<%=gallery.getGallaery_id()%>">
+  	<input type="hidden" name="filename" value="<%=gallery.getFilename()%>">
+    <input type="text" name="title" 		value = "<%=gallery.getTitle()%>">
+    <input type="text" name="writer" 		value = "<%=gallery.getWriter()%>">
+    <textarea 			   name="content" 	style="height:200px"><%=gallery.getContent()%></textarea>
     <input type="file" name="myfile">
     <p>
     <input type="button" value="수정">

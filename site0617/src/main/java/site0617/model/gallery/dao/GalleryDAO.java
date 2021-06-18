@@ -71,12 +71,61 @@ public class GalleryDAO {
 	
 	
 	//한건 가져오기
-	public void select() {
+	public Gallery select(int gallery_id) {
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Gallery gallery=null;
+		try {
+			con=pool.getConnection();
+			String sql="select * from gallery where gallery_id="+gallery_id;
+			pstmt=con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				gallery = new Gallery();
+				gallery.setGallaery_id(rs.getInt("gallery_id"));
+				gallery.setTitle(rs.getString("title"));
+				gallery.setWriter(rs.getString("writer"));
+				gallery.setContent(rs.getString("content"));
+				gallery.setRegdate(rs.getString("regdate"));
+				gallery.setFilename(rs.getString("filename"));
+				gallery.setHit(rs.getInt("hit"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			pool.release(con, pstmt, rs);
+		}
 		
-		String sql="select * from gallery where gallery_id=?";
+		return gallery;
+	}
+	
+	public int del(int gallery_id) {
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		try {
+			con=pool.getConnection();//풀로부터 Connection 한개 대여
+			String sql="delete from gallery where gallery_id="+gallery_id;
+			pstmt=con.prepareStatement(sql);
+			
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			pool.release(con, pstmt);
+			
+		}
+		
+		return result;
+		
 	}
 	
 	
+
 	
 	
 	

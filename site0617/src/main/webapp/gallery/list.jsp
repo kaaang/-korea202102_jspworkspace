@@ -57,7 +57,7 @@ $(function(){
     <td>NO</td>
     <td><img src="/data/<%=gallery.getFilename()%>" width="50px"></td>
     <td>
-    	<a href="/gallery/detail.jsp"><%=gallery.getTitle() %></a>
+    	<a href="/gallery/detail.jsp?gallery_id=<%=gallery.getGallaery_id() %>"><%=gallery.getTitle() %></a>
     </td>
     <td><%=gallery.getWriter() %></td>
     <td><%=gallery.getRegdate() %></td>
