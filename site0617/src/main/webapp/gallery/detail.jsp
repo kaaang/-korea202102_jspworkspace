@@ -45,20 +45,24 @@ input[type=button]:hover {
 $(function(){
 	CKEDITOR.replace("content");
 	
+	var btn=$("input[type='button']");
+	
 	//버튼에 이벤트 연결하기
-	$("input[type='button']").click(function(){
-		regist();
+	$(btn[0]).click(function(){
+		edit();
+	});
+	$(btn[1]).click(function(){
+		del();
+	});
+	$(btn[2]).click(function(){
+		location.href="/gallery/list.jsp"
 	});
 });
 
-function regist(){
-	$("form").attr({
-		//"action":"/gallery/upload.jsp",
-		"action":"/upload",
-		"enctype":"multipart/form-data",
-		"method":"post"
-	});
-	$("form").submit();
+function del(){
+	if(confirm("삭제 하시겠어요?")){
+		
+	}
 }
 
 </script>
@@ -74,7 +78,9 @@ function regist(){
     <textarea 			   name="content" 	placeholder="내용.." style="height:200px"></textarea>
     <input type="file" name="myfile">
     <p>
-    <input type="button" value="Submit">
+    <input type="button" value="수정">
+    <input type="button" value="삭제">
+    <input type="button" value="목록">
   </form>
 </div>
 
