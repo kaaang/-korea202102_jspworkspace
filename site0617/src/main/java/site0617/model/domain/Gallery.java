@@ -1,18 +1,19 @@
 package site0617.model.domain;
 
 public class Gallery {
-	private int gallaery_id;
+	private int gallery_id;
 	private String title;
-	private String writer; 
+	private String writer;
 	private String content;
 	private String regdate;
 	private String filename;
 	private int hit;
-	public int getGallaery_id() {
-		return gallaery_id;
+	
+	public int getGallery_id() {
+		return gallery_id;
 	}
-	public void setGallaery_id(int gallaery_id) {
-		this.gallaery_id = gallaery_id;
+	public void setGallery_id(int gallery_id) {
+		this.gallery_id = gallery_id;
 	}
 	public String getTitle() {
 		return title;
@@ -50,8 +51,5 @@ public class Gallery {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	
-	
-	
 	
 }

@@ -45,33 +45,38 @@ input[type=button]:hover {
 $(function(){
 	CKEDITOR.replace("content");
 	
-	//버튼에 이벤트 연결하기
+	//버튼에 이벤트 연결하기 
 	$("input[type='button']").click(function(){
-		regist();
+		regist();	
 	});
 });
 
+//주의!!! 클라이언트가 서버에 문자열이 아닌 파일자체를 전송하려면 반드시 
+//form태그에 multipart/form-data가 명시되어야 한다!!
+//이때, 서버에서는 기존의 request 객체가 보유한 getParameter() 메서드로는
+//바이너리 파일이 포함된 요청을 처리할 수 없다!!
 function regist(){
 	$("form").attr({
 		//"action":"/gallery/upload.jsp",
 		"action":"/upload",
 		"enctype":"multipart/form-data",
 		"method":"post"
-	});
+	});	
 	$("form").submit();
 }
+
 
 </script>
 </head>
 <body>
 
-<h3>파일 업로드 양식</h3>
+<h3>파일업로드 양식</h3>
 
 <div class="container">
-  <form>
-    <input type="text" name="title" 		placeholder="제목..">
-    <input type="text" name="writer" 		placeholder="작성자..">
-    <textarea 			   name="content" 	placeholder="내용.." style="height:200px"></textarea>
+  <form action="/action_page.php">
+    <input type="text" 	name="title" 			placeholder="제목..">
+    <input type="text" 	name="writer" 		placeholder="작성자..">
+    <textarea 					name="content" 	placeholder="내용.." style="height:200px"></textarea>
     <input type="file" name="myfile">
     <p>
     <input type="button" value="Submit">
@@ -80,3 +85,4 @@ function regist(){
 
 </body>
 </html>
+    

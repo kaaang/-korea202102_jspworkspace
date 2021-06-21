@@ -150,7 +150,7 @@ public class BoardDAO {
 	}
 	
 	
-	//수정
+	//삭제
 	public int del(int board_id) {
 		Connection con = null;
 		PreparedStatement pstmt=null;
