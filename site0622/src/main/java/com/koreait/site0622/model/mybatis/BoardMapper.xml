@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+
+
+	<!-- 게시물 한건등록 -->
+  <insert id="insert" parameterType="Board">
+  	insert into board(title, writer, content) values(#{title},#{writer},#{content})
+  </insert>
+  
+  
+	<!-- 모든 레코드 가져오기   , resultType : 어떤 VO에 맵핑 시킬지-->
+	<select id="selectAll" resultType="Board">
+		select * from board order by board_id desc
+	</select>
+  
+	<!-- 레코드 한건 가져오기 -->
+	<select id="select" parameterType="int" resultType="Board">
+		select * from board where board_id=#{board_id}
+	</select>
+  
+  
+	<!-- 레코드 한건 수정하기 -->
+	<update id="update" parameterType="Board">
+		update board set title=#{title}, writer=#{writer}, content=#{content} where board_id=#{board_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from board where board_id=#{board_id}
+	</delete>
+  
+</mapper>
