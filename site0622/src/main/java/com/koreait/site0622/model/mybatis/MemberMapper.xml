@@ -9,5 +9,16 @@
 	<select id="getMemberById" parameterType="String" resultType="Member">
 		select * from member where user_id=#{user_id}
 	</select>
+	
+	<!-- 회원등록 -->
+	<insert id="regist" parameterType="Member">
+		insert into member(user_id, password, name) values(#{user_id},#{password},#{name})
+	</insert>
   
+  
+  	<!-- 로그인 체크(회원정보 가져오기) -->
+  	<select id="loginCheck" parameterType="Member" resultType="Member">
+  		select * from member where user_id=#{user_id} and password=#{password}
+  	</select>
+  	
 </mapper>

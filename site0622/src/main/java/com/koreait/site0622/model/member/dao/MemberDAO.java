@@ -22,6 +22,12 @@ public interface MemberDAO {
 	//회원 1명 조회
 	public Member select(int member_id);
 	
+	//아이디 비밀번호 회원정보 가져오기
+	public Member select(Member member);
+
+	
 	//회원 수정
 	public int update(Member member);
+	
+	
 }

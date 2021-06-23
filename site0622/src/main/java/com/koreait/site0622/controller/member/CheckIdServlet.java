@@ -29,10 +29,13 @@ public class CheckIdServlet extends HttpServlet{
 		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.print(user_id+"<br>");
 		
 		Member member = memberDAO.getMemberById(user_id);//다형성
 		
+		
+		
+		/*
+		 * 동기 방식일때 적절한 응답 정보
 		if(member==null) {
 			//회원가입 진행해도 됨
 			out.print(messageObject.getMsgURL("사용 가능한 아이디 입니다.","/member/signup.jsp"));			
@@ -40,6 +43,20 @@ public class CheckIdServlet extends HttpServlet{
 			//거절해야함
 			out.print(messageObject.getMsgBack("이미 사용중인 아이디 입니다."));
 		}
+		*/
+		
+		
+		
+		//비동기에 적절한 응답 보내기
+		
+		if(member==null) {
+			out.print(0);
+		}else {
+			out.print(1);
+		}
+		
+		
+		
 		
 	}
 }

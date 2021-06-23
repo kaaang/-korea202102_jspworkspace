@@ -19,7 +19,11 @@ public class MybatisMemberDAO implements MemberDAO{
 	}
 
 	public int regist(Member member) {
-		return 0;
+		SqlSession sqlSession = configManager.getSession();
+		int result = sqlSession.insert("Member.regist",member);
+		sqlSession.commit();
+		configManager.closeSession(sqlSession);
+		return result;
 	}
 
 	public int delete(Member member) {
@@ -33,9 +37,20 @@ public class MybatisMemberDAO implements MemberDAO{
 	public Member select(int member_id) {
 		return null;
 	}
+	
+	
+	public Member select(Member member) {
+		SqlSession sqlSession = configManager.getSession();
+		Member obj = sqlSession.selectOne("Member.loginCheck",member);
+		configManager.closeSession(sqlSession);
+		return obj;
+	}
 
+	
+	
 	public int update(Member member) {
 		return 0;
 	}
+
 
 }

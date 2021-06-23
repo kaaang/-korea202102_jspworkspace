@@ -40,6 +40,7 @@ input[type=button]:hover {
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
+var valid=false;
  $(function(){
 	 //버튼에 이벤트 연결
 	 $("#bt_check").click(function(){
@@ -67,10 +68,36 @@ input[type=button]:hover {
 	 //순수한 비동기 객체인 XMLHttpRequest를 직접 사용할 수도 있으나, 처리 코드가 너무 번거롭기 때문에 
 	 //자바 스크립트를 단순화 시켜놓은 프레임웤인 jquery의 ajax기능을 활용해보자
 	 $.ajax({
-		 
+		 url:"/member/idcheck",
+		 type:"post",
+		 data:{
+			 "user_id":$("input[name='user_id']").val()
+		 },
+		 success:function(result, status, xhr){
+			 //result :서버 응답 데이터 , status :서버 상태 코드 , xhr : 비동기 통신객체 
+			if(result=="1"){
+				alert("이미 사용중인 아이디 입니다.");
+			}else{
+				alert("사용 가능한 아이디 입니다.");
+				valid=true;
+			}
+		 },
+		 error:function(xht, status, error){//서버의 상태 코드가 에러일때..
+			 
+		 }
 	 });
  }
  function regist(){
+	 if(valid){
+		 //동기 방식으로 요청
+		 $("form").attr({
+			 "action":"/member/regist.jsp",
+			 "method":"post"
+		 });
+		 $("form").submit();		 
+	 }else{
+		 alert("아이디 중복을 체크하세요");
+	 }
  }
 
 </script>
