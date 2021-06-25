@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReBoard">
+
+
+	<!-- 한건등록 -->
+	<insert id="insert" parameterType="ReBoard">
+		insert into reboard(title,writer,content) 
+		values(#{title},#{writer},#{content})
+		<!-- insert 하자마자 아래의 코드가 곧바로 수행된다. -->
+		<selectKey order="AFTER" resultType="int" keyProperty="reboard_id">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- team값 업데이트 -->
+	<update id="updateTeam" parameterType="ReBoard">
+		update reboard set team=#{team} where reboard_id=#{reboard_id}
+	</update>
+	
+	
+	<!-- 게시글 목록 가져오기 -->
+	<select id="selectAll" resultType="ReBoard">
+		select * from reboard order by team desc, step asc
+	</select>
+
+
+	<!-- 한건 가져오기 -->
+	<select id="select" parameterType="int" resultType="ReBoard">
+		select * from reboard where reboard_id=#{reboard_id}
+	</select>
+	
+	
+	<!-- 답변달기(들어갈 자리 마련 + 답변글 등록) -->
+	<update id="updateStep" parameterType="ReBoard"> <!-- 답변용 아니고 내가 본 글의 ReBoard -->
+		<![CDATA[
+			update reboard set step=step+1 where step > #{step} and team=#{team} 	
+		]]>
+	</update>
+	<insert id="reply" parameterType="ReBoard">
+		insert into reboard(title, writer, content, team, step, depth) 
+		values(#{title}, #{writer},#{content},#{team}, #{step}+1, #{depth}+1)
+	</insert>
+	
+
+</mapper>
