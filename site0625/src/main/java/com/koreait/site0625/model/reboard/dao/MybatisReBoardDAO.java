@@ -49,12 +49,29 @@ public class MybatisReBoardDAO implements ReBoardDAO{
 		return 0;
 	}
 
-	public int updateStop(ReBoard reBoard) {
-		return 0;
-	}
+	
+	
 
+	
+	//답변 등록
 	public int reply(ReBoard reBoard) {
-		return 0;
+		SqlSession sqlSession = configManager.getSession();
+		
+		int result=0;
+		try {
+			sqlSession.update("ReBoard.updateStep", reBoard);
+			//가발자가 따져봐야할 사항은 result가 아닌, 에러가 나지 않은 경우에 아래의 답변을 등록해야한다.
+			
+			sqlSession.insert("ReBoard.reply", reBoard);		
+			sqlSession.commit();
+			result=1;
+		}catch (Exception e) {
+			e.printStackTrace();
+			result=0;
+		}
+		
+		configManager.closeSession(sqlSession);
+		return result;
 	}
 
 }

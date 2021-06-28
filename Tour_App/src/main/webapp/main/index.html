@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+    .wrapper{
+        width: 1000px;
+        height: 700px;
+        background: yellow;
+        margin: auto;
+        overflow: hidden;
+    }
+    .leftSide{
+        width: 200px;
+        height: 100%;
+        background: crimson;
+        float: left;
+    }
+    #content{
+        width: 800px;
+        height: 100%;
+        background: #ccc;
+        float: left;
+    }
+    .leftSide *{
+    	width:95%;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+var posArray = new Array(5);
+
+function initMap() {
+	//좌표 배열에 데이터 넣기
+	posArray[0]=new google.maps.LatLng(51.505742,-0.120550);
+	posArray[1]=new google.maps.LatLng(51.506742,-0.120650);
+	posArray[2]=new google.maps.LatLng(51.507742,-0.120750);
+	posArray[3]=new google.maps.LatLng(51.508742,-0.120850);
+	posArray[4]=new google.maps.LatLng(51.509742,-0.120950);
+	
+	var mapProp= {
+	  center:posArray[0],
+	  zoom:5,
+	};
+	
+	//맵 객체 생성
+	var map = new google.maps.Map(document.getElementById("content"),mapProp);
+	
+	
+	for(var i=0;i<posArray.length;i++){
+	//마커 생성
+	var marker = new google.maps.Marker({position: posArray[i]});
+	marker.setMap(map);
+	
+	//팝업 윈도우 생성
+	var infowindow = new google.maps.InfoWindow({
+		  content:"<img src='/data/1.jpg' width=30px>"
+		});
+
+	infowindow.open(map,marker);		
+	}
+	
+	
+}
+
+function loadFromXML(){
+	//jsp, 서블릿에게 데이터 요청하기 (새로고침 없이 비동기로 요청하기)
+	$.ajax({
+		"url":"/place/list",
+		"type":"get",
+		"success":function(result, status, xhr){
+			alert(result);
+		}
+	});
+}
+
+
+</script>
+
+</head>
+<body>
+
+
+    <div class="wrapper">
+        <div class="leftSide">
+        	<input type="button" value="공공데이터 LOAD" onclick="loadFromXML()">
+        	
+        	<!-- 
+        	<select>
+        		<option>시도 선택</option>
+        	</select>
+        	<select>
+        		<option>구군 선택</option>        	
+        	</select>
+        	 -->
+        	
+        	<input type="text" placeholder="제목...">
+        	<textarea placeholder="내용..." style="height:200px;"></textarea>
+        	<input type="text" placeholder="위도...">
+        	<input type="text" placeholder="경도...">
+        	<input type="file">
+        	<input type="button" value="썸네일 등록">
+        </div>
+        <div id="content">우측</div>
+    </div>
+
+
+
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7ItqkkrUzKI9Jbl7RsU3ja_7zCspDMpo&callback=initMap"></script>

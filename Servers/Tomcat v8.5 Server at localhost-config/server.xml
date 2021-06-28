@@ -190,7 +190,7 @@ JNDI : Java Naming Directory Interface
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="site0615" path="/site0615" reloadable="true" source="org.eclipse.jst.jee.server:site0615"/><Context docBase="site0616" path="/site0616" reloadable="true" source="org.eclipse.jst.jee.server:site0616"/><Context docBase="site0621" path="/site0621" reloadable="true" source="org.eclipse.jst.jee.server:site0621"/><Context docBase="site0622" path="/site0622" reloadable="true" source="org.eclipse.jst.jee.server:site0622"/><Context docBase="site0625" path="/" reloadable="true" source="org.eclipse.jst.jee.server:site0625"/></Host>
+      <Context docBase="site0615" path="/site0615" reloadable="true" source="org.eclipse.jst.jee.server:site0615"/><Context docBase="site0616" path="/site0616" reloadable="true" source="org.eclipse.jst.jee.server:site0616"/><Context docBase="site0621" path="/site0621" reloadable="true" source="org.eclipse.jst.jee.server:site0621"/><Context docBase="site0622" path="/site0622" reloadable="true" source="org.eclipse.jst.jee.server:site0622"/><Context docBase="site0625" path="/site0625" reloadable="true" source="org.eclipse.jst.jee.server:site0625"/><Context docBase="Tour_App" path="/" reloadable="true" source="org.eclipse.jst.jee.server:Tour_App"/></Host>
     </Engine>
   </Service>
 </Server>

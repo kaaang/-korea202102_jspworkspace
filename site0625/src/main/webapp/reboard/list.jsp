@@ -9,6 +9,7 @@
 <%
 	reBoardDAO = new MybatisReBoardDAO();
 	List<ReBoard> boardList=reBoardDAO.selectAll();
+	
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -67,7 +68,11 @@ img{border:0px}
 		  	<%for(ReBoard reboard : boardList){ %>
 		    <tr align="center" height="20px" onMouseOver="this.style.background='#FFFF99'" onMouseOut="this.style.background=''">
 			  <td width="50">1</td>
-			  <td width="303" style="text-align:left"><a href="detail.jsp?reboard_id=<%= reboard.getReboard_id()%>"><%=reboard.getTitle() %></a></td>
+			  <td width="303" style="text-align:left; box-sizing:border-box">
+			  <%if(reboard.getDepth() > 0){ %>
+			  <img src="/reboard/images/re.png" width="16px" style="margin-left:<%= 10*reboard.getDepth()%>px">
+			  <% }%>
+			  <a href="detail.jsp?reboard_id=<%= reboard.getReboard_id()%>"><%=reboard.getTitle() %></a></td>
 			  <td width="100"><%=reboard.getWriter() %></td>
 			  <td width="100"><%=reboard.getRegdate().substring(0,10) %></td>
 			  <td width="50"><%=reboard.getHit() %></td>

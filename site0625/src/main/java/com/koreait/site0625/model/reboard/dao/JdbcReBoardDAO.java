@@ -27,9 +27,7 @@ public class JdbcReBoardDAO implements ReBoardDAO{
 		return 0;
 	}
 
-	public int updateStop(ReBoard reBoard) {
-		return 0;
-	}
+	
 
 	public int reply(ReBoard reBoard) {
 		return 0;
