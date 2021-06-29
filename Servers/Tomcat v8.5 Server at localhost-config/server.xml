@@ -68,10 +68,9 @@ JNDI : Java Naming Directory Interface
 		결론 : 아래와 같이 세팅하면, 오라클에 대한 커넥션 풀을 이름으로 찾을 수 있도록 세팅한 것이다.
 		
      -->
-	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="20" maxIdle="10" maxWait="3000" name="jndi/oracle" password="1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="webmaster"/>
+	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="20" maxIdle="10" maxWait="3000" name="jndi/oracle" password="1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@DESKTOP-JODTDD4:1521:XE" username="webmaster"/>
 	<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="3000" name="jndi/mysql" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/javase?characterEncoding=UTF-8" username="root"/>
   </GlobalNamingResources>
-
 
 
 

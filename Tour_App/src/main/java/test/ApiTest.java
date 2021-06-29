@@ -4,6 +4,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.XML;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -24,6 +29,9 @@ public class ApiTest {
         urlBuilder.append("&" + URLEncoder.encode("radius","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*거리 반경(단위m), Max값 20000m=20Km*/
         urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*목록 구분 (Y=목록, N=개수)*/
         urlBuilder.append("&" + URLEncoder.encode("modifiedtime","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*콘텐츠 수정일*/
+       
+        
+        
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -42,6 +50,16 @@ public class ApiTest {
         }
         rd.close();
         conn.disconnect();
-        System.out.println(sb.toString());
+        //System.out.println(sb.toString());
+        
+        
+        JSONObject json=XML.toJSONObject(sb.toString());
+        System.out.println(json);
+        
+        JSONObject res=(JSONObject)json.get("response");
+        JSONObject body=(JSONObject)res.get("body");
+        JSONObject items=(JSONObject)body.get("items");
+        JSONArray item=(JSONArray)items.get("item");
+        System.out.println("관광 아이템의 수 : "+item.length());
     }
 }
