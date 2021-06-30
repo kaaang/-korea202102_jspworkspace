@@ -1,0 +1,5 @@
+#Properties 객체로 해석할 수 있는 데이터 를 작성
+
+
+/blood.do=com.koreait.mvcframework.controller.blood.BloodController
+/movie.do=com.koreait.mvcframework.controller.movie.MovieController
