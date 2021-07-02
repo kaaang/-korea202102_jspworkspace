@@ -7,7 +7,7 @@
  	<!-- 서블릿이 웹 서버에 의해 초기화 될 때  무언가 추가적으로 정보를 넘기고 싶을떄 아래의 파라미터로 전달 가능-->
  	<init-param>
  		<param-name>contextConfigLocation</param-name>
- 		<param-value>/WEB-INF/mapping.props</param-value>
+ 		<param-value>/WEB-INF/mapping.data</param-value>
  	</init-param>
  </servlet>
 <servlet-mapping>

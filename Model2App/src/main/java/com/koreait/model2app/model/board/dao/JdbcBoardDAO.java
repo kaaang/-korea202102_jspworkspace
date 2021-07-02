@@ -73,9 +73,10 @@ public class JdbcBoardDAO implements BoardDAO{
 		Board board=null;
 		
 		con=pool.getConnection();
-		String sql="select * from board where board_id="+board_id;
+		String sql="select * from board where board_id=?";
 		try {
 			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, board_id); //바인드 변수
 			rs=pstmt.executeQuery(); //쿼리수행
 			if(rs.next()) {
 				board = new Board();

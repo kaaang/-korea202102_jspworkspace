@@ -19,7 +19,7 @@ public class PoolManager {
       //ds=톰켓이 지원하는 커넥션풀을 JNDI로 가져오자!
       try {
          ctx = new InitialContext();
-         ds=(DataSource)ctx.lookup("java:comp/env/jndi/mysql"); //검색 후 DataSource 반환
+         ds=(DataSource)ctx.lookup("java:comp/env/jndi/oracle"); //검색 후 DataSource 반환
       } catch (NamingException e) {
          e.printStackTrace();
       }
