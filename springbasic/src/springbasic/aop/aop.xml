@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<!-- 
+		AOP관련 용어
+		
+		
+		Aspect : 공통 로직
+		JoinPoint : 공통 로직을 적용할 대상이 되는 지점(일반적인 용어), aspect가 적용될 후보들
+		Pointcut : 실제로 aspect가 적용된 JointPoint의 부분집합, aspect가 결정된곳
+		Advice : 공통 로직이 어느 시점에 적용될지를 결정하는 용어(bofore, after, around...)
+	 -->
+	
+	
 	
 	<!-- 공통으로 사용할 코드 등록 -->
 	<bean class="springbasic.aop.Bell" id="bell"/>
+	
+	<!-- 위에서 명시된 공통 코드인 aspect를 어느 시점(학생의 메서드 이전), 어즈 지점(student클래스의 모든 메서드)에서 동작할지 서술해야한다. -->
+	<aop:config>
+		<aop:aspect ref="bell" id="bellAspect">
+			<aop:pointcut expression="execution(public * springbasic.aop..*(..))" id="bellPointcut"/>
+			<aop:before method="sound" pointcut-ref="bellPointcut"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- 학생 클래스 등록 -->
+	<bean class="springbasic.aop.Student" id="student"/>
+	<bean class="springbasic.aop.Soldier" id="soldier"/>
 
 </beans>
