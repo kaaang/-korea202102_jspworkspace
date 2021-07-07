@@ -13,21 +13,67 @@
 		<property name="mappings">
 			<props>
 				<!-- 키 이름과  컨트롤러 작성 -->
-				<prop key="/board/list"></prop>
+				<prop key="/board/list">listController</prop>
+				<prop key="/board/detail">detailController</prop>
+				<prop key="/board/update">updateController</prop>
+				<!-- 
 				<prop key="/board/regist"></prop>
-				<prop key="/board/detail"></prop>
-				<prop key="/board/update"></prop>
 				<prop key="/board/delete"></prop>
+				 -->
 			</props>
 		</property>
 	</bean>
 
 
-	<bean class="" name=""></bean>
 
 
-<!-- 뷰 매핑 -->
 
+
+	
+	<!-- 모델 객체 등록 -->
+	<bean 	class="com.koreait.springmvc0707.model.mybatis.MybatisConfigManager"
+				 id="mybatisConfigManager"
+				 factory-method="getInstance"/>
+				 
+	<bean class="com.koreait.springmvc0707.model.board.repository.MybatisBoardDAO" id="mybatisBoardDAO">
+		<property name="configManager" ref="mybatisConfigManager"></property>
+	</bean>
+	
+	<bean class="com.koreait.springmvc0707.model.board.service.BoardServiceImpl" id="boardServiceImpl">
+		<property name="boardDAO" ref="mybatisBoardDAO"></property>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 컨트롤러 등록 (위빙)-->
+	<bean class="com.koreait.springmvc0707.controller.board.ListController" name="listController">
+		<!-- 리스트 컨트롤러에 있는 멤머변수 인식 -->
+		<property name="boardService" ref="boardServiceImpl"></property>
+	</bean>
+	<bean class="com.koreait.springmvc0707.controller.board.DetailController" name="detailController">
+		<!-- 리스트 컨트롤러에 있는 멤머변수 인식 -->
+		<property name="boardService" ref="boardServiceImpl"></property>
+	</bean>
+	<bean class="com.koreait.springmvc0707.controller.board.UpdateController" name="updateController">
+	
+	</bean>
+
+
+
+
+
+
+
+
+	<!-- 뷰 매핑 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver">
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
 
 
 </beans>
