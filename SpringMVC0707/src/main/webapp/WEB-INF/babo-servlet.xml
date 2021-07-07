@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!-- 컨트롤러 맵핑 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<!-- 전체 url를 사용하겠다 -->
+		<property name="alwaysUseFullPath" value="true"/>
+		
+		<!-- url에 어떤 클래스가 요청을 처리할지 맵핑(map)방식 -->
+		<property name="mappings">
+			<props>
+				<!-- 키 이름과  컨트롤러 작성 -->
+				<prop key="/board/list"></prop>
+				<prop key="/board/regist"></prop>
+				<prop key="/board/detail"></prop>
+				<prop key="/board/update"></prop>
+				<prop key="/board/delete"></prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean class="" name=""></bean>
+
+
+<!-- 뷰 매핑 -->
+
+
+
+</beans>
