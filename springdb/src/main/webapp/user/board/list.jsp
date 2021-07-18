@@ -1,4 +1,4 @@
-<%@page import="com.koreait.springmvc0715.model.domain.Board"%>
+<%@page import="com.koreait.springdb.model.domain.Board"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
@@ -54,7 +54,7 @@ $(function(){
   <%for(Board board:boardList){ %>
   <tr>
     <td><%=board.getBoard_id()%></td>
-    <td><a href="/board/detail?board_id=<%=board.getBoard_id()%>"><%=board.getTitle() %></a></td>
+    <td><a href="/client/board/detail?board_id=<%=board.getBoard_id()%>"><%=board.getTitle() %></a></td>
     <td><%=board.getWriter() %></td>
     <td><%=board.getRegdate() %></td>
     <td><%=board.getHit() %></td>

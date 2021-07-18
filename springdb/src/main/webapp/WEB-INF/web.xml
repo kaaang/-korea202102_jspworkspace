@@ -4,8 +4,32 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	<display-name>springdb</display-name>
-	
-	
+
+
+	<!-- 서버가 가동 될 때, servletContext 인 application 내장 객체에 원하는 메시지 심기 이렇게 servletContext 
+		수준으로 스프링 빈을 관리할 경우, 모든 서블릿에서 공통적으로 접근이 가능하다 따라서 비지니스 로직 등의 모델 파트의 빈들은 ServletContext가 
+		관리하는 ApplicationContext에 등록하자 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>WEB-INF/root-context.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -18,8 +42,8 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	
+
+
 	<!-- 어플리케이션의 규모가 커질경우 요청을 처리하는 DispatcherServlet 클래스는 여러개 둘 수도 있다. -->
 	<servlet>
 		<servlet-name>clientServlet</servlet-name>
@@ -33,8 +57,8 @@
 		<servlet-name>clientServlet</servlet-name>
 		<url-pattern>/client/*</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 	<servlet>
 		<servlet-name>adminServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -47,13 +71,13 @@
 		<servlet-name>adminServlet</servlet-name>
 		<url-pattern>/admin/*</url-pattern>
 	</servlet-mapping>
-	
-	
-	
-	
-	
 
-	
-	
-	
+
+
+
+
+
+
+
+
 </web-app>
