@@ -1,4 +1,4 @@
-<%@page import="com.koreait.springmvc0715.model.domain.Board"%>
+<%@page import="com.koreait.springdb.model.domain.Board"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
