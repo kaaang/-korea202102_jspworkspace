@@ -1,8 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+
+	<!-- datasource 등록 -->
+	<jee:jndi-lookup id="dataSource" jndi-name="jndi/mysql"
+		resource-ref="true" />
+
+
+	<!-- 트랜잭션 매니저 등록 -->
+	<bean
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		id="transactionManager"
+		p:dataSource-ref="dataSource" />
+
+
+
+	<!-- SqlSessionFactoryBean 등록 -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"  id="sqlSessionFactoryBean"
+	p:dataSource-ref="dataSource"
+	p:configLocation="classpath:/com/koreait/shoppingmall/mybatis/config.xml"/>
+
+
+
+	<!-- SqlSessionTemplate 등록 -->
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 위에서 등록한 빈들을 제외한 나머지 Service, DAO 등은 자동 검색하여 등록을 실시 
+			@Service, @Repository 등등 자동으로 메모리에 인스턴스 생성
+			그리고 해당 빈에 @Autowired가 등록되어 있다면, weaving마저도 자동 등록
+	-->
+	<context:component-scan base-package="com.koreait.shoppingmall.model"/>
+
+
+
+
 </beans>

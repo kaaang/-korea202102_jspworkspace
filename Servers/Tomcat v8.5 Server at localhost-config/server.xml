@@ -69,7 +69,7 @@ JNDI : Java Naming Directory Interface
 		
      -->
 	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="20" maxIdle="10" maxWait="3000" name="jndi/oracle" password="1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@DESKTOP-JODTDD4:1521:XE" username="webmaster"/>
-	<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="3000" name="jndi/mysql" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/javase?characterEncoding=UTF-8" username="root"/>
+	<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="3000" name="jndi/mysql" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/shopping?characterEncoding=UTF-8" username="root"/>
   </GlobalNamingResources>
 
 

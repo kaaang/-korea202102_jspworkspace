@@ -57,7 +57,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 <script>
 	$(function(){
-		$("input[type='button']").click(function(){
+		$("button[type='button']").click(function(){
 			loginCheck();
 		})
 	});
