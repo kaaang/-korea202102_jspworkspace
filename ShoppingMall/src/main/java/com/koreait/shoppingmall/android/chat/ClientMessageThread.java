@@ -7,15 +7,19 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-public class ServerMessageThread extends Thread{
-	ChatServer chatServer;
+//말하는 타이밍은 사용자가 결정하지만, 듣는 타이밍은 실시간으로 루프를 이용해서 청취해야 하므로, 무한 루프가 필요하다
+//따라서 별도의 스레드를 정의하여 듣기를 처리하자
+public class ClientMessageThread extends Thread{
+	ChatClient chatClient;
 	Socket socket;
 	BufferedReader buffr;//듣기용
 	BufferedWriter buffw;//말하기용
 	
-	public ServerMessageThread(ChatServer chatServer,Socket socket) {
-		this.chatServer=chatServer;
-		this.socket = socket;
+	
+	
+	public ClientMessageThread(ChatClient chatClient,Socket socket) {
+		this.chatClient=chatClient;
+		this.socket=socket;
 		
 		try {
 			buffr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -26,31 +30,28 @@ public class ServerMessageThread extends Thread{
 	}
 	
 	
-	//듣고
+	//듣기
 	public void listen() {
-		String msg = null;
-		try {
-			msg=buffr.readLine();
-			send(msg);
-			chatServer.area.append(msg+"\n");
-		} catch (IOException e) {
-			e.printStackTrace();
+		while(true) {
+			String msg = null;
+			try {
+				msg=buffr.readLine();
+				chatClient.area.append(msg+"\n");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	//말하기
 	public void send(String msg) {
-		
 		try {
-			//다수의 사람들에게 말하기
-			for(int i=0;i<chatServer.clientList.size();i++) {
-				ServerMessageThread smt=chatServer.clientList.get(i);
-				smt.buffw.write(msg+"\n");
-				smt.buffw.flush();
-			}
+			buffw.write(msg+"\n");
+			buffw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void run() {
@@ -58,6 +59,5 @@ public class ServerMessageThread extends Thread{
 			listen();
 		}
 	}
-	
 	
 }

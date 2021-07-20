@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +24,7 @@ public class ChatServer extends JFrame{
 	
 	ServerSocket server;
 	Thread serverThread;
+	Vector<ServerMessageThread> clientList;
 	
 	public ChatServer() {
 		//생성
@@ -30,6 +33,7 @@ public class ChatServer extends JFrame{
 		bt = new JButton("Server On");
 		area = new JTextArea();
 		scroll = new JScrollPane(area);
+		clientList = new Vector<ServerMessageThread>();
 		
 		//스타일
 		
@@ -54,7 +58,7 @@ public class ChatServer extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				serverThread.start();
 			}
-		});
+		}); 
 		
 		
 		//보여주기
@@ -68,7 +72,15 @@ public class ChatServer extends JFrame{
 		int port = Integer.parseInt(t_port.getText());
 		try {
 			server = new ServerSocket(port);
-			server.accept();//접속자 감지를 위한 대기
+			area.append("서버 가동...\n");
+			
+			while(true) {
+				Socket socket = server.accept();//접속자 감지를 위한 대기
+				ServerMessageThread smt = new ServerMessageThread(this,socket);//메시지 전용 객체 생성
+				smt.start();
+				clientList.add(smt);//접속자 명단에 추가
+				area.append("현재까지 접속자 수 : "+clientList.size()+"\n");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
