@@ -8,3 +8,21 @@ create table admin(
 )default character set utf8;
 
 insert into admin(host_id, password, name, email) values('admin','1234','admin','admin@naver.com');
+
+
+
+
+--상위카테고리에 소속된 하위카테고리의 수
+select t.topcategory_id, top_name, count(subcategory_id)
+from topcategory t left outer join subcategory s
+on t.topcategory_id=s.topcategory_id
+group by t.topcategory_id, top_name
+order by t.topcategory_id asc;
+
+
+
+
+--선택한 상위 카테고리에 소속된 하위 카테고리 목록
+select * from subcategory where topcategory_id =(
+	select topcategory_id from topcategory where top_name='Down'
+);

@@ -9,6 +9,8 @@
 		<typeAlias
 			type="com.koreait.shoppingmall.domain.TopCategory" alias="TopCategory" />
 		<typeAlias
+			type="com.koreait.shoppingmall.domain.TopCategoryCount" alias="TopCategoryCount" />
+		<typeAlias
 			type="com.koreait.shoppingmall.domain.SubCategory" alias="SubCategory" />
 	</typeAliases>
 
