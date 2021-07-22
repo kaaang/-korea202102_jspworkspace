@@ -12,5 +12,10 @@
 		group by t.topcategory_id, top_name
 		order by t.topcategory_id asc;
 	</select>
+	
+	<!-- 최상위 카테고리 가져오기 -->
+	<select id="selectAll" resultType="TopCategoryCount">
+		select * from topcategory order by topcategory_id asc
+	</select>
 
 </mapper>

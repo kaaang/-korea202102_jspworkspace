@@ -21,8 +21,7 @@ public class TopCategoryMybatisDAO implements TopCategoryDAO{
 
 	@Override
 	public List selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectList("TopCategoryCount.selectAll");
 	}
 
 	@Override

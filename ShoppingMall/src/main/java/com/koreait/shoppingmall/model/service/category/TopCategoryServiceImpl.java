@@ -20,8 +20,7 @@ public class TopCategoryServiceImpl implements TopCategoryService{
 
 	@Override
 	public List selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return topCategoryDAO.selectAll();
 	}
 
 	@Override
