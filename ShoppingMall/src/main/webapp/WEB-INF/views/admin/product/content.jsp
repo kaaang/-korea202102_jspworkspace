@@ -1,8 +1,10 @@
   
+<%@page import="com.koreait.shoppingmall.domain.Product"%>
 <%@page import="com.koreait.shoppingmall.domain.TopCategoryCount"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
+	Product product=(Product)request.getAttribute("product");
 	List<TopCategoryCount> topList = (List)request.getAttribute("topList");
 %>
 <!DOCTYPE html>
@@ -58,7 +60,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">상품 등록</h1>
+            <h1 class="m-0">상품 상세정보</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -82,6 +84,8 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form name="form1">
+              <input type="hidden" name="product_id" value="<%=product.getProduct_id()%>">
+              <input type="hidden" name="product_img" value="<%=product.getProduct_img()%>">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">상위 카테고리</label>
@@ -89,7 +93,7 @@
 	                        <select class="form-control" name="topcategory_id">
 	                        	<option value="0">카테고리 선택</option>
 	                          <%for(TopCategoryCount topCategory: topList){ %>
-	                          <option value="<%=topCategory.getTopcategory_id()%>"><%=topCategory.getTop_name()%></option>
+	                          <option value="<%=topCategory.getTopcategory_id()%>" <%if(product.getSubCategory().getTopcategory_id()==topCategory.getTopcategory_id()){%>selected<%}%>  ><%=topCategory.getTop_name()%></option>
 	                          <%}%>
 	                        </select>
                       </div>
@@ -98,7 +102,9 @@
                   <div class="form-group">
                     <label for="exampleInputEmail1">하위 카테고리</label>
 					<div class="form-group">
-                        <select class="form-control" name="subcategory_id"></select>
+                        <select class="form-control" name="subcategory_id">
+                        	<option value="<%=product.getSubCategory().getSubcategory_id()%>"><%=product.getSubCategory().getSub_name() %></option>
+                        </select>
                      </div>
                     
                   </div>
@@ -135,7 +141,9 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="button" class="btn btn-primary" onClick="regist()">Submit</button>
+                  <button type="button" class="btn btn-primary" onClick="getList()">목록</button>
+                  <button type="button" class="btn btn-primary" onClick="update()">수정</button>
+                  <button type="button" class="btn btn-primary" onClick="del()">삭제</button>
                 </div>
               </form>
             </div>		
@@ -238,14 +246,24 @@ function getSubList(topcategory_id){
 		}
 	});
 }
-//상품 등록 요청
+//상품 수정 요청
 function regist(){
 	$("form").attr({
-		action:"/admin/product/regist",
+		action:"",
 		method:"post",
 		enctype:"multipart/form-data"
 	});
 	$("form").submit();
+}
+
+function del(){
+	if(confirm("삭제하시겠어요?")){
+		$("form").attr({
+			action:"/admin/product/del",
+			method:"post"
+		});
+		$("form").submit();
+	}
 }
 </script>
 <!-- 등록폼 관련 종료 -->

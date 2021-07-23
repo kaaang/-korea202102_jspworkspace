@@ -26,3 +26,61 @@ order by t.topcategory_id asc;
 select * from subcategory where topcategory_id =(
 	select topcategory_id from topcategory where top_name='Down'
 );
+
+
+
+
+
+
+
+select top_name, count(subcategory_id) as cnt
+from topcategory t left outer join subcategory s 
+on t.topcategory_id = s.topcategory_id 
+group by top_name 
+order by t.topcategory_id asc;
+
+
+
+
+select * from subcategory where topcategory_id =(
+	select topcategory_id from topcategory where top_name='Down'
+);
+
+
+
+--상품테이블
+create table product(
+	product_id int primary key auto_increment 
+	, subcategory_id int 
+	, product_name varchar(30)
+	, brand varchar(25)
+	, price int default 0 
+	, info text
+) default character set utf8;
+
+
+
+
+
+--고객센터의 게시판
+create table board(
+	board_id int primary key auto_increment
+	,title varchar(100)
+	, writer varchar(20)
+	, context text
+	, regdate timestamp default now()
+	, hit int default 0
+	)default character set utf8;
+	
+	alter table product add product_img varchar(25);
+	
+	
+	
+	
+	--조인, 상세보기
+	select t.topcategory_id, s.subcategory_id ,sub_name,
+			product_id, product_name, brand, price, info, product_img 
+from topcategory t ,subcategory s ,product p 
+where t.topcategory_id =s.subcategory_id
+and  s.subcategory_id = p.subcategory_id
+and product_id=2;

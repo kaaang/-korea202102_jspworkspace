@@ -1,9 +1,8 @@
-  
-<%@page import="com.koreait.shoppingmall.domain.TopCategoryCount"%>
+<%@page import="com.koreait.shoppingmall.domain.Product"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	List<TopCategoryCount> topList = (List)request.getAttribute("topList");
+	List<Product> productList=(List)request.getAttribute("productList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +10,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Dashboard</title>
+    <!-- Simple Table관련 시작 -->
+	  <!-- Google Font: Source Sans Pro -->
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	  <!-- Font Awesome -->
+	  <link rel="stylesheet" href="/resources/admin/plugins/fontawesome-free/css/all.min.css">
+	  <!-- Theme style -->
+	  <link rel="stylesheet" href="/resources/admin/dist/css/adminlte.min.css">
+  <!-- Simple Table관련 종료 -->
   
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -58,7 +65,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">상품 등록</h1>
+            <h1 class="m-0">상품 리스트</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -74,72 +81,58 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-		<!--등록폼 시작-->
-			<div class="card card-primary">
+		<!-- 테이블 샘플 시작 -->				      	
+		<div class="row">
+          <div class="col-12">
+            <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Quick Example</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form name="form1">
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">상위 카테고리</label>
-						<div class="form-group">
-	                        <select class="form-control" name="topcategory_id">
-	                        	<option value="0">카테고리 선택</option>
-	                          <%for(TopCategoryCount topCategory: topList){ %>
-	                          <option value="<%=topCategory.getTopcategory_id()%>"><%=topCategory.getTop_name()%></option>
-	                          <%}%>
-	                        </select>
-                      </div>
-                    
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">하위 카테고리</label>
-					<div class="form-group">
-                        <select class="form-control" name="subcategory_id"></select>
-                     </div>
-                    
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">상품명</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="product_name">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">브랜드</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" name="brand">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">가격</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" name="price">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">상세정보</label>
-                    <textarea class="form-control" placeholder="상품 상세정보" name="info"></textarea>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="photo">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                      </div>
+                <h3 class="card-title">Responsive Hover Table</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button type="button" class="btn btn-primary" onClick="regist()">Submit</button>
-                </div>
-              </form>
-            </div>		
-		<!--등록폼 종료-->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>하위카테고리</th>
+                      <th>이미지</th>
+                      <th>상품명</th>
+                      <th>브랜드</th>
+                      <th>가격</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <%for(Product product:productList){ %>
+                    <tr onclick="location.href='/admin/product/detail?product_id=<%=product.getSubcategory_id() %>';">
+                      <td><%=product.getSubcategory_id() %></td>
+                      <td><img src="/resources/data/<%=product.getProduct_img() %>" width="50px"></td>
+                      <td><%=product.getProduct_name() %></td>
+                      <td><%=product.getBrand() %></td>
+                      <td><%=product.getPrice() %></td>
+                    </tr>
+                    <%} %>
+                  </tbody>
+                </table>
+              </div>
+              
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>      
+      	<!-- 테이블 샘플 종료 -->
+      </div>		
       </div>
         <!-- /.container-fluid -->
     </section>
@@ -197,57 +190,15 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/resources/admin/dist/js/pages/dashboard.js"></script>
 
-<!-- 등록폼 관련 시작-->
+<!-- simple 테이블 관련 링크  -->
 <!-- jQuery -->
 <script src="/resources/admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- bs-custom-file-input -->
-<script src="/resources/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/resources/admin/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/resources/admin/dist/js/demo.js"></script>
-<!-- Page specific script -->
-<script>
-$(function () {
-	bsCustomFileInput.init();
-	
-	$("select[name='topcategory_id']").change(function(){
-		getSubList($(this).val());		
-	});
-});
-function getSubList(topcategory_id){
-	
-	//비동기 방식으로 하위 카테고리를 가져오기 
-	$.ajax({
-		url:"/admin/category/topdetail?topcategory_id="+topcategory_id,
-		type:"GET", 
-		success:function(result, status, xhr){
-			$("select[name='subcategory_id']").html("");//초기화
-			
-			var tag="";
-			tag+="<option value='0'>하위 카테고리 선택</option>";
-			
-			for(var i=0;i<result.length;i++){
-				var json = result[i];
-				tag+="<option value='"+json.subcategory_id+"'>"+json.sub_name+"</option>";
-			}
-			
-			$("select[name='subcategory_id']").append(tag);	
-		}
-	});
-}
-//상품 등록 요청
-function regist(){
-	$("form").attr({
-		action:"/admin/product/regist",
-		method:"post",
-		enctype:"multipart/form-data"
-	});
-	$("form").submit();
-}
-</script>
-<!-- 등록폼 관련 종료 -->
+
 </body>
 </html>
