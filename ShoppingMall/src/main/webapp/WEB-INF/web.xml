@@ -32,6 +32,17 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- put과 delete요청시 필터등록을 해야 post및hidden으로 처리가 가능하다 -->
+	<filter>
+		<filter-name>httpMethodFileter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>httpMethodFileter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+
 
 
 
@@ -70,6 +81,25 @@
 	<servlet-mapping>
 		<servlet-name>adminServlet</servlet-name>
 		<url-pattern>/admin/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>restServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/rest-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>restServlet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>
