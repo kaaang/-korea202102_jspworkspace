@@ -50,6 +50,15 @@ public class BoardController {
 	@PutMapping("/board")
 	@ResponseBody
 	public String update(@RequestBody Board board) {
+		System.out.println("수정 요청 들어옴");
+		boardService.update(board);
+		return "ok";
+	}
+	//글 수정
+	@PutMapping("/board/update")
+	@ResponseBody
+	public String edit(@RequestBody Board board) {
+		System.out.println("수정 요청 들어옴 not rest");
 		boardService.update(board);
 		return "ok";
 	}

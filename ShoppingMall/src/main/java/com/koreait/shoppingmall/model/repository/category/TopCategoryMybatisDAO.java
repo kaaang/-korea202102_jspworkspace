@@ -16,12 +16,12 @@ public class TopCategoryMybatisDAO implements TopCategoryDAO{
 
 	@Override
 	public List getSubCount() {
-		return sqlSessionTemplate.selectList("TopCategoryCount.getSubCount");
+		return sqlSessionTemplate.selectList("TopCategory.getSubCount");
 	}
 
 	@Override
 	public List selectAll() {
-		return sqlSessionTemplate.selectList("TopCategoryCount.selectAll");
+		return sqlSessionTemplate.selectList("TopCategory.selectAll");
 	}
 
 	@Override
@@ -46,6 +46,11 @@ public class TopCategoryMybatisDAO implements TopCategoryDAO{
 	public void delete(int topCategory_id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List selectChild() {
+		return sqlSessionTemplate.selectList("TopCategory.selectChild");
 	}
 
 }

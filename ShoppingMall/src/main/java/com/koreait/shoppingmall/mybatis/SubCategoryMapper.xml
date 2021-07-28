@@ -12,5 +12,10 @@
 	<select id="select" parameterType="int" resultType="Subcategory">
 		select * from subcategory where subcategory_id=#{subcategory_id}
 	</select>
+	
+	<!-- 이 쿼리는 무보인 TopCategoryMapper에서 거느린 자식을 구하기 위해 호출되는 쿼리다 -->
+	<select id="selectByTop" parameterType="int" resultType="SubCategory">
+		select * from subcategory where topcategory_id=#{topcategory_id}
+	</select>
 
 </mapper>

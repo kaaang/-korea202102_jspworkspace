@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -22,6 +24,25 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.koreait.shoppingmall.controller.client" />
+	
+	
+	<!-- aop설정 -->
+	<!-- 공통 관심사항의 대상이 되는 공통 로직을 등록한다. -->
+	<beans:bean class="com.koreait.shoppingmall.model.study.StudentImpl" id="student"/>
+	<beans:bean class="com.koreait.shoppingmall.aop.test.Bell" id="bellAspect"/>
+	
+	<!-- 위에서 등록한 공통 로직이 어느 지점에서(JoinPoint라 하고ㅡ 
+	JoinPoint중 특정화된 조인포인트를 가리켜 Pointcut), 
+	어느시점(Advice before,after,around)에 동작을 하게 될지를 서술해보자 -->
+	<aop:config>
+		<aop:aspect id="soundAspect" ref="bellAspect">
+			<!-- execution에서 사용되는 표현식은 스프링의 기술이 아니라, 스프링 기술 이전부터 있었던
+			AspectJ라는 기술에서 참고 -->
+			<aop:pointcut expression="execution(public * com.koreait.shoppingmall.model.study.Student..*(..))" id="bellPointcut"/>
+			<aop:around method="sound" pointcut-ref="bellPointcut"/>
+			
+		</aop:aspect>
+	</aop:config>		
 	
 	
 	

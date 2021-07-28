@@ -46,5 +46,9 @@ public class TopCategoryServiceImpl implements TopCategoryService{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public List selectChild() {
+		return topCategoryDAO.selectChild();
+	}
 
 }

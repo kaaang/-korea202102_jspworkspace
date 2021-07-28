@@ -34,7 +34,7 @@ public class ProductController {
 	
 	//상품 등록폼 요청처리 
 	@GetMapping("/product/registform")
-	public String registForm(Model model) {
+	public String registForm(Model model, HttpServletRequest request) {
 		//3단계: 최상위 카테고리 가져오기 
 		List topList = topCategoryService.selectAll();
 		
@@ -67,7 +67,7 @@ public class ProductController {
 	
 	//모든 상품 가져오기
 	@GetMapping("/product/list")
-	public String getList(Model model) {
+	public String getList(Model model, HttpServletRequest request) {
 		List productList=productService.selectAll();
 		model.addAttribute("productList",productList);
 		return "admin/product/product_list";
@@ -76,7 +76,7 @@ public class ProductController {
 	
 	//상세정보 가져오기
 	@GetMapping("/product/detail")
-	public String getDetial(int product_id,Model model) {
+	public String getDetial(int product_id,Model model, HttpServletRequest request) {
 		Product product=productService.select(product_id);
 		List topList=topCategoryService.selectAll();
 		model.addAttribute("product",product);

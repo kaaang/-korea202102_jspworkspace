@@ -12,6 +12,11 @@
 		select * from product order by product_id desc
 	</select>
 	
+	<!-- 하위 카테고리에 소속된 상품 목록 -->
+	<select id="selectBySubCategory" parameterType="int" resultType="Product">
+		select * from product where subcategory_id=#{subcategory_id}
+	</select>
+	
 	
 	
 	
@@ -37,5 +42,6 @@
 	<delete id="delete" parameterType="int">
 		delete from product where product_id=#{product_id}
 	</delete>
-
+	
+	
 </mapper>

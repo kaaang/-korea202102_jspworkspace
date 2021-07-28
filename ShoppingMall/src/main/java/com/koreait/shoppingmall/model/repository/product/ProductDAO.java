@@ -11,6 +11,7 @@ public interface ProductDAO {
 	public void insert(Product product);
 	public void update(Product product);
 	public void delete(int product_id);
+	public List selectBySubCategory(int subcategory_id);
 
 
 }

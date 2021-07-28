@@ -41,5 +41,9 @@ public class ProductServiceImpl implements ProductService{
 		productDAO.delete(product_id);
 		
 	}
+	@Override
+	public List selectBySubCategory(int subcategory_id) {
+		return productDAO.selectBySubCategory(subcategory_id);
+	}
 
 }
